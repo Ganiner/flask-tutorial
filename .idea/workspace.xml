@@ -2,15 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7d7b5c91-435b-4f07-b045-7fed508ca093" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog.py" afterPath="$PROJECT_DIR$/blog.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/Day03 Web表单.md" afterPath="$PROJECT_DIR$/docs/Day03 Web表单.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/Day04 Sqlite数据库.md" afterPath="$PROJECT_DIR$/docs/Day04 Sqlite数据库.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/Day05 大型程序结构.md" afterPath="$PROJECT_DIR$/docs/Day05 大型程序结构.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/Day06 博客文章.md" afterPath="$PROJECT_DIR$/docs/Day06 博客文章.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/Day07 后台管理.md" afterPath="$PROJECT_DIR$/docs/Day07 后台管理.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/base.html" afterPath="$PROJECT_DIR$/templates/base.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/index.html" afterPath="$PROJECT_DIR$/templates/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -40,8 +32,8 @@
       <file leaf-file-name="base.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/templates/base.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="34" column="10" lean-forward="true" selection-start-line="34" selection-start-column="10" selection-end-line="34" selection-end-column="10" />
+            <state relative-caret-position="286">
+              <caret line="22" column="10" lean-forward="false" selection-start-line="22" selection-start-column="10" selection-end-line="22" selection-end-column="10" />
               <folding>
                 <element signature="e#1069#1076#1#HTML" expanded="true" />
               </folding>
@@ -86,13 +78,13 @@
         <option value="$PROJECT_DIR$/docs/Day02 Jinja2&amp;Bootstrap.md" />
         <option value="$PROJECT_DIR$/templates/demo.html" />
         <option value="$PROJECT_DIR$/templates/index.html" />
-        <option value="$PROJECT_DIR$/templates/base.html" />
         <option value="$PROJECT_DIR$/blog.py" />
         <option value="$PROJECT_DIR$/docs/Day03 Web表单.md" />
         <option value="$PROJECT_DIR$/docs/Day04 Sqlite数据库.md" />
         <option value="$PROJECT_DIR$/docs/Day05 大型程序结构.md" />
         <option value="$PROJECT_DIR$/docs/Day06 博客文章.md" />
         <option value="$PROJECT_DIR$/docs/Day07 后台管理.md" />
+        <option value="$PROJECT_DIR$/templates/base.html" />
       </list>
     </option>
   </component>
@@ -395,7 +387,14 @@
       <option name="project" value="LOCAL" />
       <updated>1502017832176</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Day03 Web表单以及flash消息">
+      <created>1502109701849</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1502109701849</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -431,7 +430,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Day01 Hello Flask" />
     <MESSAGE value="Day02 Jinja2模板引擎以及继承Twitter Bootstrap" />
-    <option name="LAST_COMMIT_MESSAGE" value="Day02 Jinja2模板引擎以及继承Twitter Bootstrap" />
+    <MESSAGE value="Day03 Web表单以及flash消息" />
+    <option name="LAST_COMMIT_MESSAGE" value="Day03 Web表单以及flash消息" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
@@ -713,8 +713,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/base.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="34" column="10" lean-forward="true" selection-start-line="34" selection-start-column="10" selection-end-line="34" selection-end-column="10" />
+        <state relative-caret-position="286">
+          <caret line="22" column="10" lean-forward="false" selection-start-line="22" selection-start-column="10" selection-end-line="22" selection-end-column="10" />
           <folding>
             <element signature="e#1069#1076#1#HTML" expanded="true" />
           </folding>
