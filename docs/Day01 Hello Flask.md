@@ -1,6 +1,8 @@
 # Day01 Hello Flask
 
-技术交流群:630398887(欢迎一起吹牛)
+源代码: https://github.com/LToddy/blog
+
+技术交流群:63039888(欢迎一起吹牛)
 
 写在前面的话：这里我假设你电脑已经安装好了Python3，本篇基于Python3开发。(没有pip没关系)
 

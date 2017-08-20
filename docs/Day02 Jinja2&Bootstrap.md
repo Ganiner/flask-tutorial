@@ -1,5 +1,7 @@
 # Day02 Jinja2模板引擎, 使用Twitter Bootstrap
 
+源代码: https://github.com/LToddy/blog
+
 技术交流群:63039888(欢迎一起吹牛)
 
 有些地方没看懂没关系，坚持往下看，下面会有演示代码来说明。

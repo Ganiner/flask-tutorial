@@ -1,6 +1,7 @@
 # Day05 大型程序结构
 
-源代码: <a href="https://github.com/LToddy/blog" target="_blank" rel="noopener noreferrer">https://github.com/LToddy/blog</a>
+源代码: https://github.com/LToddy/blog
+
 技术交流群:63039888(欢迎一起吹牛)
 
 文中提到的狗书,就是《Flask Web开发 基于Python的Web应用开发实战》, 看过的人都是到,这本书坑挺多的.
