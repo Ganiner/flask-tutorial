@@ -2,7 +2,7 @@ QQ交流群:630398887 (欢迎加群一起吹牛)
 
 暑假闲来无事写写文章，欢迎star。
 
-环境依赖:
+### 环境依赖:
 ```
 pip install flask
 pip install flask-script
@@ -12,7 +12,7 @@ pip install flask-sqlalchemy
 pip install flask-login
 ```
 
-如何使用：
+### 如何使用：
 ```
 git clone git@github.com:LToddy/blog.git
 ```
@@ -21,7 +21,7 @@ git clone git@github.com:LToddy/blog.git
 python3 manage.py runserver
 ```
 
-文章列表:
+### 文章列表:
 
 - [Day01 Hello Flask](http://algo.site/?p=79)
 - [Day02 Jinja2&Bootstrap](http://algo.site/?p=81)
