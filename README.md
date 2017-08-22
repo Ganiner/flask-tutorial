@@ -24,6 +24,8 @@ python3 manage.py runserver
 
 [Flasky-SQLAlchemy 管理数据库](http://www.jianshu.com/p/9d16731db33f)
 
+后台管理页面的URL是：localhost:5000/admin
+
 ## 文章列表:
 
 - [Day01 Hello Flask](http://algo.site/?p=79)
