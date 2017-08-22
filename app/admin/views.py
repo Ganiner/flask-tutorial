@@ -1,6 +1,7 @@
 from . import admin
 from ..models import User
-from .forms import LoginForm, RegistrationForm
+from ..models import Article
+from .forms import LoginForm, RegistrationForm, PostForm
 from .. import db
 from flask import render_template
 from flask import redirect
@@ -12,11 +13,21 @@ from flask.ext.login import logout_user
 from flask.ext.login import login_required
 
 
-@admin.route('/')
+@admin.route('/', methods=['GET', 'POST'])
 def index():
+    form = PostForm()
     if not current_user.is_authenticated:
         return redirect(url_for('admin.login'))
-    return render_template('admin/index.html')
+    if form.validate_on_submit():
+        try:
+            article = Article(title=form.title.data, content=form.content.data)
+            db.session.add(article)
+            form.title.data = ''
+            form.content.data = ''
+            flash('发布成功')
+        except:
+            flash('文章标题有重复')
+    return render_template('admin/index.html', form=form)
 
 
 @admin.route('/login', methods=['GET', 'POST'])
