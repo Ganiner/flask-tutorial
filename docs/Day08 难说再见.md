@@ -4,6 +4,18 @@
 
 技术交流群:630398887(欢迎一起吹牛)
 
+写在前面的话：
+如果要运行这次的代码，请先:
+```
+$ python3 manage.py shell
+>>> from manage.py import *
+>>> db.drop_all()
+>>> db.create_all()
+>>> exit()
+```
+因为我已经注册了用户了。
+
+
 到目前为止，blog还是有很多问题的：
 
 - 数据库建模方面，没有使用外键，也就是说没有一对多或者多对一的关系。也就是说，对于目前的blog，如果你注册了多个用户，那么这些用户对于所有文章是共用的。而不是各自用户有各自的文章 —— 如何解决，当然你也可以使用外键来链接两个表实现，或者我们就只允许一个用户(管理员)的存在，私人使用。
@@ -66,3 +78,36 @@ def register():
 
 先解决添加文章的修改功能，我们可不可以这样子，把发布文章和更新文章视作同一种操作。
 我们将发布和更新文章这两个功能合二为一，怎么说呢。当你去发布文章的时候，根据标题去查询数据库有没有这篇文章，如果没有这篇文章，那么就在数据库中添加这个信息，如果有这篇文章，那么就去更改数据库这条信息的内容。
+
+<small>app/admin/views</small>
+```python
+@admin.route('/', methods=['GET', 'POST'])
+def index():
+    form = PostForm()
+    if not current_user.is_authenticated:
+        return redirect(url_for('admin.login'))
+    if form.validate_on_submit():
+        article = Article(title=form.title.data, content=form.content.data)
+        if Article.query.filter_by(title=form.title.data).first() is None:  # 文章不存在
+            db.session.add(article)
+            flash('发布成功')
+        else:  # 文章已存在
+            article = Article.query.filter_by(title=form.title.data).first()
+            article.content = form.content.data
+            db.session.add(article)
+            # db.session.commit()
+            flash('文章更新成功')
+        form.title.data = ''
+        form.content.data = ''
+    return render_template('admin/index.html', form=form)
+```
+
+最后是删除文章：这里我就不写了，我相信你可以自己做到。
+
+### 说点额外话:
+一个网站构成的,
+- 用户看到的界面（前端）
+- 后端表单验证+数据库
+
+前端从来不是问题，因为毕竟你去百度可以搜索到各种各样炫酷的模板。
+后端，这是核心。数据的处理在这里。

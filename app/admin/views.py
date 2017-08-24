@@ -21,22 +21,15 @@ def index():
         return redirect(url_for('admin.login'))
     if form.validate_on_submit():
         article = Article(title=form.title.data, content=form.content.data)
-        if Article.query.filter_by(title=form.title.data) is None:  # 文章不存在
+        if Article.query.filter_by(title=form.title.data).first() is None:  # 文章不存在
             db.session.add(article)
             flash('发布成功')
         else:  # 文章已存在
-            Article.query.filter_by(title=form.title.data).content = form.content.data
-            db.session.commit()
+            article = Article.query.filter_by(title=form.title.data).first()
+            article.content = form.content.data
+            db.session.add(article)
+            # db.session.commit()
             flash('文章更新成功')
-
-        # try:
-        #     article = Article(title=form.title.data, content=form.content.data)
-        #     db.session.add(article)
-        #     flash('发布成功')
-        # except:
-        #     Article.query.filter_by(title=str(form.title.data)).first().content = form.content.data
-        #     db.session.commit()
-        #     flash('文章更新成功')
         form.title.data = ''
         form.content.data = ''
     return render_template('admin/index.html', form=form)
@@ -69,7 +62,7 @@ def logout():
 
 @admin.route('/register', methods=['GET', 'POST'])
 def register():
-    # global is_exist_admin
+    global is_exist_admin
     form = RegistrationForm()
     if form.validate_on_submit() and not is_exist_admin:
         try:
