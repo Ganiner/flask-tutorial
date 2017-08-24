@@ -2,7 +2,7 @@
 
 源代码: https://github.com/LToddy/blog
 
-技术交流群:63039888(欢迎一起吹牛)
+技术交流群:630398887(欢迎一起吹牛)
 
 写在前面的话：如果你实在不会写页面,复制粘贴你会吧.
 > https://getbootstrap.com/docs/3.3/examples/theme/

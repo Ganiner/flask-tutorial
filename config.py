@@ -2,6 +2,8 @@ import os
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
+is_exist_admin = False
+
 
 class Config:
     SECRET_KEY = 'a string'

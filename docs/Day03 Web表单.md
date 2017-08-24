@@ -2,7 +2,7 @@
 
 源代码: https://github.com/LToddy/blog
 
-技术交流群:63039888(欢迎一起吹牛)
+技术交流群:630398887(欢迎一起吹牛)
 
 ```
 pip install flask-wtf

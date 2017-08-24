@@ -27,7 +27,9 @@ python3 manage.py runserver
 后台管理页面的URL是：localhost:5000/admin
 
 ## 如何学习(源代码的使用):
+
 每一部分结束后的源代码我都对应的打上了标签
+
 ![](http://img.vim-cn.com/cf/b744a3017c8a7ef1cf024af2cf39ab79fdc96f.png)
 
 
