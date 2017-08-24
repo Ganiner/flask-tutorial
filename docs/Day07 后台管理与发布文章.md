@@ -211,7 +211,7 @@ $ python3 manage.py shell
     <ol class="list-unstyled">
         <li><h2>文章列表</h2></li>
         {% for article in articles %}
-            <li><a href="admin/article/{{ article.title }}">{{ article.title }}</a></li>
+            <li><a href="article/{{ article.title }}">{{ article.title }}</a></li>
         {% endfor %}
     </ol>
 {% endblock %}
@@ -222,7 +222,7 @@ $ python3 manage.py shell
     <ol class="list-unstyled">
         <li><h2>文章列表</h2></li>
         {% for article in articles %}
-            <li><a href="admin/article/{{ article.title }}">{{ article.title }}</a></li>
+            <li><a href="article/{{ article.title }}">{{ article.title }}</a></li>
         {% endfor %}
     </ol>
 {% endblock %}
