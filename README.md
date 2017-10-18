@@ -13,9 +13,8 @@ pip install flask-login
 ```
 
 ## 如何使用：
-```
-git clone git@github.com:LToddy/blog.git
-```
+下载项目
+
 然后解压，打开,在命令行终端输入:
 ```
 python3 manage.py runserver
