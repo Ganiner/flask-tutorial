@@ -1,6 +1,6 @@
-# Day02 Jinja2模板引擎, 使用Twitter Bootstrap
+# Jinja2模板引擎, 使用Twitter Bootstrap
 
-源代码: https://github.com/LToddy/blog
+源代码: https://github.com/ltoddy/Flask-toturial
 
 技术交流群:630398887(欢迎一起吹牛)
 

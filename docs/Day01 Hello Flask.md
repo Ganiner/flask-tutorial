@@ -1,4 +1,4 @@
-# Day01 Hello Flask
+# Hello Flask
 
 源代码: https://github.com/ltoddy/Flask-toturial
 
