@@ -15,9 +15,11 @@ pip install flask-wtf
     <input type="button" value="提交">
 </form>
 ```
+
 ![](http://img.vim-cn.com/32/11edeccf4a37843499eb0e699e6c2aa8a61e8c.png)
 
 也就是说阿，在你要填写的框框前有一个提示的标语（label），然后有一个提交的按钮，按钮上写着提交俩字。
+
 ```python
 from flask_wtf import FlaskForm
 from wtforms import StringField
@@ -28,9 +30,11 @@ class NameForm(FlaskForm):
     # StringField() 就是那个输入的框框
     submit = SubmitField('提交') # 这里的'提交'对应着按钮的文字
 ```
-先大体浏览一下下面两个表格，然后我在具体将使用
+
+先大体浏览一下下面两个表格，然后我在具体讲解怎么使用
 
 ### WTForms支持的HTML标准字段
+
 |字段类型	            |说明  |
 |-------------------|-----|
 |StringField	    |文本字段|
@@ -52,6 +56,7 @@ class NameForm(FlaskForm):
 |FieldList	        |一组指定类型的字段|
 
 ### WTForms验证函数
+
 |验证函数       |	说明|
 |--------------|------|
 |Email	       |验证电子邮件地址|
@@ -67,6 +72,7 @@ class NameForm(FlaskForm):
 |NoneOf	       |确保输入值不在可选列表中|
 
 ### 把表单加入到页面中去:
+
 顺便提一句，之前的那个hello_world函数，我把它改名为index了。
 先看我们的html页面：
 
@@ -81,15 +87,20 @@ class NameForm(FlaskForm):
     {{ wtf.quick_form(form) }}
 {% endblock %}
 ```
+
 第二行：
 
-```{% import 'bootstrap/wtf.html' as wtf %}```
+```
+{% import 'bootstrap/wtf.html' as wtf %}
+```
 
-bootstrap为我们集成好了一个宏（理解成函数就好了），它可以很方便的把我们的表单类（刚才的NameForm）渲染成表单。
+bootstrap为我们集成好了一个宏（理解成函数就好了），它可以很方便的把我们的表单类(刚才的NameForm)渲染成表单。
 
-再看下面: 
+再看下面:
 
-```{% <h1>Hello {% if name %}{{ name }}{% else %}stranger!{% endif %}</h1> %}```
+```
+{% <h1>Hello {% if name %}{{ name }}{% else %}stranger!{% endif %}</h1> %}
+```
 
 如果有名字近来，那么显示名字，没有名字的话就显示stranger（陌生人）。
 
@@ -100,7 +111,7 @@ bootstrap为我们集成好了一个宏（理解成函数就好了），它可�
 class NameForm(FlaskForm):
     name = StringField('你叫什么名字', validators=[Required()])
     submit = SubmitField('提交')
-    
+
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -111,10 +122,14 @@ def index():
         form.name.data = ''
     return render_template('index.html', name=name, form=form)
 ```
+
 注意看，和刚才有差别。
+
 第一个是没有那个validators=[Required()]这一部分的，这段是什么意思呢，就是说你在框框中填写的内容是有要求的，这个Required()的要求是，框框中的内容不为空才可以提交。
 如果你什么都没写，然后提交，就会出现：
-![](http://img.vim-cn.com/87/b1b868d603ff4c29c21be4bd5351a397b2d2e5.png)类似这样的情况。具体看每个人电脑的具体实现了。
+![](http://img.vim-cn.com/87/b1b868d603ff4c29c21be4bd5351a397b2d2e5.png)
+
+类似这样的情况。具体看每个人电脑的具体实现了。
 还有一点，表单的提交要通过POST方法，这里不再多余说了，具体去看HTTP协议。
 
 但是这个页面还是有问题的，当你按下F5去刷新页面的时候，会给你个提示：问你表单是不是要重新提交一下。
@@ -134,9 +149,11 @@ def index():
 这里我用到了一个东西：session（会话），它会记住上下文，把数据存储在这个session中。怎么理解呢？
 浏览器是一个傻子，他只能记住最后发生的一件事情，这个session就是为了强行让浏览器记住一些东西。
 还用到了redirect和url_for这两个组合,url_for便于我们生成url，当然那一行代码你也可以写成:
-```python 
+
+```python
 redirect('/')
 ```
+
 因为就是要回到主页嘛，主页地址就是'/'，但是随着程序日益的复杂，你不可能完全掌握所有的地址，所以我们通过url_for来获得地址，url_for('index')注意看括号中的参数内容'index'对应着视图函数index()的名字。也就是说重新定向到这个函数映射的页面上。
 
 看一下完整代码:
@@ -198,7 +215,7 @@ if __name__ == '__main__':
 再介绍一点更人性化的东西：
 
 ### Flash消息：
-有些时候，当你作出了改动的时候，最好有个东西来提醒你:Flash
+有些时候，当你作出了改动的时候，最好有个东西来提醒你:flash
 
 <small>blog.py</small>
 ```python
@@ -231,3 +248,5 @@ def index():
     </div>
 {% endblock %}
 ```
+
+赶快去运行程序尝试提交表单看看效果吧.
