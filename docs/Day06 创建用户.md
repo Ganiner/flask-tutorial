@@ -20,6 +20,7 @@ $ python3 manage.py shell
 >>> db.create_all()
 >>> exit()
 ```
+
 如果你启动项目之后，页面给出了一个sqlalchemy相关的异常，看看你有没有执行上面的语句。
 
 OK，这次要好好说明一下蓝图的好处.
@@ -44,6 +45,7 @@ class User(db.Model):
     def __repr__(self):
         return 'users表: id为:{}, name为:{}'.format(self.id, self.name)
 ```
+
 其实就加上了 password 那一行.因为我们登录的时候需要帐号和密码这两样东西.
 
 我们还需要处理一下我们的表单，毕竟我们需要注册和登录，都需要填写表单。
@@ -72,7 +74,9 @@ class LoginForm(FlaskForm):
     password = PasswordField('密码:', validators=[Required()])
     submit = SubmitField('确认,提交')
 ```
+
 关于这两个表单，我曾经思考过:因为这两个表单中有相同的部分,我想提取出来:
+
 ```python
 class BaseForm(FlaskForm):
     username = StringField('用户名:', validators=[Required()])
@@ -85,12 +89,14 @@ class RegisterForm(BaseForm):
 class LoginForm(BaseForm):
     pass
 ```
+
 就像上面代码那样子,然而我否决了自己,这样子写大幅度的降低了可读性,而且,这个表单类,与HTML中的表单是一个一一对应的关系,所以最好不要提取一个父类来写.
 
 
 写完这些,我们创建一下响应的蓝图:
 
 <small>app/admin/\_\_init\_\_.py</small>
+
 ```python
 from flask import Blueprint
 
@@ -99,8 +105,11 @@ admin = Blueprint('admin', __name__)
 from . import forms
 from . import views
 ```
+
 别忘了注册一下蓝图
+
 <small>app/\_\_init\_\_.py</small>
+
 ```python
 from flask import Flask
 from flask.ext.bootstrap import Bootstrap
@@ -133,13 +142,16 @@ def create_app():
     # 这里我们 url_prefix='/admin， 这个样子我们访问admin蓝本中的路由的时候，就需要加上前缀：admin
     return app
 ```
+
 这里注意一下啊:
+
 ```python
 from flask.ext.login import LoginManager
 login_manager = LoginManager()
 login_manager.session_protection = 'strong'  # 这行代码就记住吧，我也不想解释了
 login_manager.login_view = 'admin.login'  # 设置登录界面, 名为admin这个蓝本的login视图函数
 ```
+
 我们需要有一个管理用户登录的东西—— LoginManager
 
 还是要说一下蓝图，我们要做的这个blog，这个应用程序(app),他会有各个模块。举个例子，比如你去淘宝网页。
@@ -157,6 +169,7 @@ OK，我们来设计一下我们的视图函数。
 比如我的技术博客, http://algo.site 和访问 http://algo.site/index.php 是一样的。
 
 为了能够将你登录之后的状态记录下来，我们需要为我们的User模型添加点东西:
+
 ```python
 from . import db
 from . import login_manager
@@ -181,6 +194,7 @@ class User(db.Model, UserMixin):
 def load_user(user_id):
     return User.query.get(int(user_id))
 ```
+
 只是多继承了一个UserMixin类。
 他帮我们提供了一些功能：比如判断是否登录，比如获取你的主键(id)，为了唯一标识用户，这一点很重要，因为就像一个大型网站，肯定会多人同时在新，如何去确认你，这里非常重要，靠的就是这个id。
 
@@ -189,6 +203,7 @@ def load_user(user_id):
 OK，最后是视图函数：
 
 <small>app/admin/views.py</small>
+
 ```python
 from . import admin
 from ..models import User
@@ -250,9 +265,11 @@ def register():
             return redirect(url_for('admin.register'))
     return render_template('admin/register.html', form=form)
 ```
+
 讲一下这些视图函数中的业务逻辑。
+
 - 第一个index():
-    
+
     就是我们后台管理的那个页面，比如你把博客文章写好之后，在这里提交，然后在blog的主页显示出来。
     当然目前还没做好。
     顺便说一下,current_user.is_authenticated 这个东西，是一个标志的变量，用来标志你有没有登录。
@@ -262,28 +279,34 @@ def register():
 - 第二个login():
 
     这个就是登录页面，当你提交表单之后，会去数据库查询，是否有你这个用户。我们这里有两层用于判断的if。
-    
+
     第一层判断的if，用来判断数据库里有没有你这个用户，如果没有你这个用户，会给你一个提示信息。
-    
+
     第二层判断的if，用来判断你密码是否正确，我们在User这个类中添加了check()这个方法。
     如果登录成功会跳转到后台的主页，没成功就提示密码错误。
-   
+
 - 第三个logout():
-    
+
     这个就是用来用户退出用的。他被@login_required所保护着，什么意思呢？就是你如果没有登录的话，你去强行访问:localhost:5000/admin/logout这个页面的话，它会重定向到登录页面。这里我要说明一下，虽然代码写的是：return redirect(url_for('admin.login'))这个，但是实际上阿，如果你没有登录访问了这个logout视图，它其实是根据login_manager.login_view = 'admin.login'你的这个设置来重定向的。
 
 - 最后register():
     我们在数据库设计中阿，那个username字段设置的是unique，也就是唯一，用户名有且仅有一个，如果你创建的用户已经在数据库中存在了，那么添加到数据库会报一个异常，所以用try except语句来处理异常.没什么好说的……
-    
+
 说点好玩的：你看阿，我们有了蓝图之后，从项目结构上看，一个蓝图对应一个文件夹，我们仅仅需要做的是，写好蓝图管辖下的路由就好，而不需要管其他蓝图的路由，这个样子，我们就把程序模块话了，每个模块各自有各自的功能，不会因为修改了这个模块而去影响其他模块，这个是非常好的一件事情，然后只需要最后的时候，把蓝本注册一下，把这些路由添加到应用中就好。
 
 
 还有，
+
 ```python
 bootstrap.init_app(app)
 db.init_app(app)
 login_manager.init_app(app)
 ```
-这些东西，我们把app这个实例当作参数传了进去，有个技术叫依赖注入(也叫控制反转)，当app传进去之后，那么与app相关的数据也就传了进去，在比如bootstrap中，比如{% import 'bootstrap/wtf.html' as wtf %}，他是怎么凭借一个名字：'bootstrap/wtf.html'来获得这个页面的，如果你是用的pycharm来写的话，软件会给你提示信息，说找不到这个模板的。很简单，我们把app给了bootstrap，然后bootstrap中就有了这个app，他识别了这个app，所以就可以用bootstrap了。
+
+这些东西，我们把app这个实例当作参数传了进去，有个技术叫依赖注入(也叫控制反转)，当app传进去之后，那么与app相关的数据也就传了进去，在比如bootstrap中，比如
+```
+{% import 'bootstrap/wtf.html' as wtf %}
+```
+他是怎么凭借一个名字：'bootstrap/wtf.html'来获得这个页面的，如果你是用的pycharm来写的话，软件会给你提示信息，说找不到这个模板的。很简单，我们把app给了bootstrap，然后bootstrap中就有了这个app，他识别了这个app，所以就可以用bootstrap了。
 
 ### **对了，相关的html页面我没有在文章中把源码放上，太占地方了，所以从源码那里复制一下好了。**
