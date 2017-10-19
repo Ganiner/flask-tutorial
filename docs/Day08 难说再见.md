@@ -13,8 +13,8 @@ $ python3 manage.py shell
 >>> db.create_all()
 >>> exit()
 ```
-因为我已经注册了用户了。
 
+因为我已经注册了用户了。
 
 到目前为止，blog还是有很多问题的：
 
@@ -29,6 +29,7 @@ $ python3 manage.py shell
 第一个问题，简单的解决方法:在config.py中加一个全局变量(bool类型)，初始值为False，表示目前没有用户注册，当第一个用户注册之后，这个变量设为True，表示已经有一个用户注册了，那么就可以不再让第二个用户注册了。
 
 <small>config.py</small>
+
 ```python
 import os
 
