@@ -5,9 +5,11 @@
 技术交流群:630398887(欢迎一起吹牛)
 
 写在前面的话：如果你实在不会写页面,复制粘贴你会吧.
+
 > https://getbootstrap.com/docs/3.3/examples/theme/
 
 这个页面是,bootstrap样式表的例样,
+
 > http://getbootstrap.com/docs/4.0/examples/
 
 这个页面是,你进去看那个页面合适,你点进去,然后右键查看网页源代码,复制就好了,顺便说一下,别忘了把CSS也复制了.
@@ -15,6 +17,7 @@
 我们来定义下我们的文章模型,文章内容放到数据库里面，然后通过查询文章标题来，在主页建立文章链接。
 
 <small>app/models.py</small>
+
 ```python
 class Article(db.Model):
     __tablename__ = 'articles'
@@ -22,6 +25,7 @@ class Article(db.Model):
     title = db.Column(db.String(64))
     content = db.Column(db.Text)
 ```
+
 文章模型很简单，一个id，一个文章标题，一个文章的内容这三个字段。
 content = db.Column(db.Text),这里，回顾一下或者百度一下SQLAlchemy的列模型。
 
@@ -31,17 +35,20 @@ content = db.Column(db.Text),这里，回顾一下或者百度一下SQLAlchemy�
 当我们有了这个数据库的文章模型之后，为了给数据库添加数据，那么我们还需要相对应的表单：
 
 <small>app/admin/forms.py</small>
+
 ```python
 class PostForm(FlaskForm):
     title = StringField('文章标题:', validators=[Required()])
     content = TextAreaField('文章内容', validators=[Required()])
     submit = SubmitField('发布')
 ```
+
 你看注意看变量的名字，我们最可能的让表单和文章模型中的变量去相同的名字，这样方便。
 
 OK,继续。我们有了表单，要在页面中呈现出来。
 
 <small>app/admin/views.py</small>
+
 ```python
 from ..models import Article
 
@@ -61,13 +68,16 @@ def index():
             flash('文章标题有重复')
     return render_template('admin/index.html', form=form)
 ```
+
 这段代码也没什么难度，先去创建一个表单form，然后判断一下你是否登录了，没登录的话就会重定向到登录界面。
 继续往下，让你提交表单的时候，这里用到了一个try - catch语句，其实这里原因是，我最初想把那个数据库文章模型中title字段设置成unique的，title = db.Column(db.String(64),unique=True),后来想想算了，所不定有相同标题的文章呢。然后就是从表单中获取数据,来构件新的文章，然后存到数据库里面。
 flash就是用来做一个提示，方便你自己知道你都干了啥事。
 
 OK，把我们的HTML页面也说一下。
-```jinja2
+
+```html
 {% extends 'admin/base.html' %}
+
 {% import 'bootstrap/wtf.html' as wtf %}
 
 {% block navbar %}
@@ -97,33 +107,37 @@ OK，把我们的HTML页面也说一下。
             </div>
         </div>
     </nav>
-{% endblock %}
+{%endblock%}
 
 {% block page_content %}
     <div class="page-header">
         {{ wtf.quick_form(form) }}
     </div>
-{% endblock %}
+{%endblock%}
 ```
+
 唯一做出了更改的地方就是 {% block page_content %}这里，里面加入了一个表单.
 OK,启动一下我们的项目看看效果。
 
 ![](http://img.vim-cn.com/49/56d76adbd7ec1f2eda090edfed2f05a93b489f.png)
 
 当然你可能会出现一个SQLAlchemy的异常，如何解决：
+
 ```
 $ python3 manage.py shell
->>> from manage import * 
+>>> from manage import *
 >>> db.drop_all()
 >>> db.create_all()
 >>> exit()
 ```
+
 更新一下我们的数据库结构，毕竟我们更改了数据库模型，添加了文章这个模型。
 注意哦，每当我们更改了app/models.py这个文件,我们最好都要重新设置一下数据库.
 
 我们现在已经可以把文章放到数据库了，现在我们要把数据库的文章显示出来。
 在这里，我修改了一下templates/base.html页面:
-```jinja2
+
+```html
 {% extends 'bootstrap/base.html' %}
 
 {% block title %}Just for fun{% endblock %}
@@ -147,7 +161,7 @@ $ python3 manage.py shell
             </div>
         </div>
     </nav>
-{% endblock %}
+{%endblock%}
 
 {% block content %}
     {% for message in get_flashed_messages() %}
@@ -164,15 +178,18 @@ $ python3 manage.py shell
             {% block slider %}{% endblock %}
         </div>
     </div>
-{% endblock %}
+{%endblock%}
 ```
+
 只更改了最后，我把<div class="container">，切成了两个块，第一个块来放文章的内容，第二个块来放文章目录。
 
 改完templates/base.html，我们在改一下templates/index.html，这是我们的主页，总显示一句话不好看，所以我们改一改。
 
-```jinja2
+```html
 {% extends 'base.html' %}
+
 {% import 'bootstrap/wtf.html' as wtf %}
+
 {% block page_content %}
     <h1>欢迎来到我的blog</h1>
     <p>技术交流群：630398887</p>
@@ -206,7 +223,8 @@ $ python3 manage.py shell
         <p>
             子张问曰：“令尹子文三仕为令尹，无喜色，三已之无愠色，旧令尹之政必以告新令尹，何如？”子曰：“忠矣。”曰：“仁矣乎？”曰：“未知，焉得仁？”“崔子弑齐君，陈文子有马十乘，弃而违之。至于他邦，则曰：‘犹吾大夫崔子也。’违之。之一邦，则又曰：‘犹吾大夫崔子也。’违之，何如？”子曰：“清矣。”曰：“仁矣乎？”曰：“未知，焉得仁？”</p>
     </div>
-{% endblock %}
+{%endblock%}
+
 {% block slider %}
     <ol class="list-unstyled">
         <li><h2>文章列表</h2></li>
@@ -214,10 +232,12 @@ $ python3 manage.py shell
             <li><a href="article/{{ article.title }}">{{ article.title }}</a></li>
         {% endfor %}
     </ol>
-{% endblock %}
+{%endblock%}
 ```
+
 当然，大部分内容去百度复制粘贴的，不过这里你要看一下这一段代码。
-```jinja2
+
+```html
 {% block slider %}
     <ol class="list-unstyled">
         <li><h2>文章列表</h2></li>
@@ -225,8 +245,9 @@ $ python3 manage.py shell
             <li><a href="article/{{ article.title }}">{{ article.title }}</a></li>
         {% endfor %}
     </ol>
-{% endblock %}
+{%endblock%}
 ```
+
 我们利用一个for循环，通过视图函数传过来的参数，做了一个文章列表，效果如下：
 
 ![](http://img.vim-cn.com/3f/956db608a240c111a49a55123859936109a735.png)
@@ -243,25 +264,28 @@ def index():
     articles = Article.query.all()
     return render_template('index.html', articles=articles)
 ```
+
 也很简单拉，把所有文章从数据库获取一下，传进去就好了。
 
 能显示文章列表了，我们需要单独把文章显示出来。
 
-```jinja2
+```html
 <li><a href="admin/article/{{ article.title }}">{{ article.title }}</a></li>
 ```
-其实阿，这段代码，是我已经把代码都写好了的，因为这个时候你可能还没有把相关的html页面写好。所以说那个
-a标签中的href属性可以先不写，然后等会在写就好。
+
+其实阿，这段代码，是我已经把代码都写好了的，因为这个时候你可能还没有把相关的html页面写好。所以说那个a标签中的href属性可以先不写，然后等会在写就好。
 
 <small>app/templates/article.html</small>
-```jinja2
+
+```html
 {% extends 'base.html' %}
 
 {% block page_content %}
     <div class="page-header"><h1>{{ title }}</h1></div>
     <div class="well">{{ content }}</div>
-{% endblock %}
+{%endblock%}
 ```
+
 文章的页面也很简单，一个标题，一个内容。两个变量。
 
 再看一下视图函数:
@@ -272,10 +296,10 @@ def article(title):
     article = Article.query.filter_by(title=title).first()
     return render_template('article.html', title=title, content=article.content)
 ```
+
 你看这里，还记得动态路由么，这里用到了动态路由，通过文章的标题来从数据库把这篇文章数据获取出来。
 然后把标题和文章内容传参到HTML页面就可以了。
 
 这个时候，你就可以把app/templates/index.html页面中那个文章列表的a标签的href属性补全了。
 
 这里说一下，你看啊，我们的功能在不断的增加，可是基本上都没有大幅度改动我们的原先的代码，而是为新功能写好代码，添加进去。这是一个非常好的表现，增加新功能而又不与原先代码有冲突。
-
