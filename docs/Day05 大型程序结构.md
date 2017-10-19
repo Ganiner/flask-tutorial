@@ -15,13 +15,14 @@
 本篇会好好的说明一下蓝本(也叫蓝图).
 
 蓝图简单一点就是,我们之前的程序不都是有一个Flask的实例
+
 > app = Flask(\_\_name\_\_)
 
 也就是这个变量app,它可以来定义路由.蓝图就是可以将路由分门别类,然后在组合在一起.
-
 不懂没关系,往下看.
 
 我们需要重新设置一下项目结构:
+
 ```
 .
 ├── app
@@ -58,13 +59,16 @@
 这里说明一下python 的包(package),从目录结构上看,python的package有两部分组成： 文件夹和__init__.py 文件. 正是因为__init__.py 的存在 python编译器才会把那个文件夹当作是一个python的包来看待.  而那个 __init__.py 的效果就是, 能够有一个与包名字相同的文件. 什么意思呢？
 
 比如 我们有一个名字为 main 的包, 那么
+
 ```python
 from main import *
 ```
+
 这行代码中,从main包中import所有的东西,你想啊,main是个包,import进来是啥？？？ 其实阿,是import进来的是__init__.py中的内容.
 
 把原先那个blog.py中的东西复制一下就好了.
-config.py
+
+<small>config.py</small>
 ```python
 import os
 
@@ -89,7 +93,7 @@ class Config:
 ### 程序工厂函数:
 说一下工厂函数,我们之前单个文件开发程序很方便,但却有个很大的缺点,因为程序在全局作用中创建,所以无法动态修改配置.运行脚本时,实例已经创建,再修改配置为时已晚,解决问题的方法就是延迟创建程序实例,把创建过程移到可显式调用的工厂函数中.
 
-<small>app.\_\_init\_\_.py</small>
+<small>app/\_\_init\_\_.py</small>
 ```python
 from flask import Flask
 from flask.ext.bootstrap import Bootstrap
@@ -111,6 +115,7 @@ def create_app():
 
     return app
 ```
+
 看一下这段代码,我们的bootstrap和db实例,先于app创建,app的创建只能调用了create_app()函数之后才创建.
 
 ### 蓝图
@@ -166,6 +171,7 @@ def create_app():
 
     return app
 ```
+
 > app.register_blueprint(main_blueprint)
 
 通过register_blueprint方法将蓝图注册进来.
@@ -260,6 +266,7 @@ python3 manage.py shell
 先把我们的表重新创建一下,因为表已经移动位置了.
 
 然后
+
 > python3 manage.py runserver
 
 就可以看到程序正常运行了.
