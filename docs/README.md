@@ -1,6 +1,6 @@
 ## Flask toturial
 
-QQ交流群:630398887 
+QQ交流群:630398887
 源代码: https://github.com/ltoddy/Flask-toturial
 
 利用Python-Flask框架搭建一个简易的博客.
@@ -18,3 +18,5 @@ QQ交流群:630398887
 
 #### 其他
 - 你可能会遇到的问题
+    - 关于SQLAlchemy的异常
+    - 关于Flask发送Email的坑
