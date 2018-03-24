@@ -1,6 +1,6 @@
 # 后台管理与发布文章
 
-源代码: https://github.com/ltoddy/Flask-toturial
+源代码: https://github.com/ltoddy/flask-tutorial
 
 技术交流群:630398887(欢迎一起吹牛)
 
@@ -75,7 +75,7 @@ flash就是用来做一个提示，方便你自己知道你都干了啥事。
 
 OK，把我们的HTML页面也说一下。
 
-```html
+```jinja
 {% extends 'admin/base.html' %}
 
 {% import 'bootstrap/wtf.html' as wtf %}
@@ -116,7 +116,7 @@ OK，把我们的HTML页面也说一下。
 {%endblock%}
 ```
 
-唯一做出了更改的地方就是 {% block page_content %}这里，里面加入了一个表单.
+唯一做出了更改的地方就是 "{% block page_content %}" 这里，里面加入了一个表单.
 OK,启动一下我们的项目看看效果。
 
 ![](http://img.vim-cn.com/49/56d76adbd7ec1f2eda090edfed2f05a93b489f.png)
@@ -137,7 +137,7 @@ $ python3 manage.py shell
 我们现在已经可以把文章放到数据库了，现在我们要把数据库的文章显示出来。
 在这里，我修改了一下templates/base.html页面:
 
-```html
+```jinja
 {% extends 'bootstrap/base.html' %}
 
 {% block title %}Just for fun{% endblock %}
@@ -185,7 +185,7 @@ $ python3 manage.py shell
 
 改完templates/base.html，我们在改一下templates/index.html，这是我们的主页，总显示一句话不好看，所以我们改一改。
 
-```html
+```jinja
 {% extends 'base.html' %}
 
 {% import 'bootstrap/wtf.html' as wtf %}
@@ -237,7 +237,7 @@ $ python3 manage.py shell
 
 当然，大部分内容去百度复制粘贴的，不过这里你要看一下这一段代码。
 
-```html
+```jinja
 {% block slider %}
     <ol class="list-unstyled">
         <li><h2>文章列表</h2></li>
@@ -269,7 +269,7 @@ def index():
 
 能显示文章列表了，我们需要单独把文章显示出来。
 
-```html
+```jinja
 <li><a href="admin/article/{{ article.title }}">{{ article.title }}</a></li>
 ```
 
@@ -277,7 +277,7 @@ def index():
 
 <small>app/templates/article.html</small>
 
-```html
+```jinja
 {% extends 'base.html' %}
 
 {% block page_content %}

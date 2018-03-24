@@ -1,6 +1,6 @@
 # Jinja2模板引擎, 使用Twitter Bootstrap
 
-源代码: https://github.com/ltoddy/Flask-toturial
+源代码: https://github.com/ltoddy/flask-tutorial
 
 技术交流群:630398887(欢迎一起吹牛)
 
@@ -77,10 +77,12 @@ def user(username):
 刚才使用的{{ name }}结构表示一个变量,它是一个特殊的占位符,告诉模板引擎这个位置的值从渲染模板时使用的数据中获取.
 Jinja2能识别所有类型的变量,甚至是一些特殊的类型:例如列表,字典和对象.
 e.g.
-- <p>A value from a dictionary: {{ mydict['key'] }}.</p>
-- <p>A value from a list: {{ mylist[3] }}.</p>
-- <p>A value from a list, with a variable index: {{ mylist[myintvar] }}</p>
-- <p>A value from a object's method: {{ myobj.somemethod() }}.</p>
+```
+A value from a dictionary: {{ mydict['key'] }}.
+A value from a list: {{ mylist[3] }}.
+A value from a list, with a variable index: {{ mylist[myintvar] }}
+A value from a object's method: {{ myobj.somemethod() }}.
+```
 
 Jinja2另外也提供了叫 _过滤器_ 的东西，但是不怎么用，这里就不再说明了。
 
