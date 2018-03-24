@@ -116,7 +116,7 @@ OK，把我们的HTML页面也说一下。
 {%endblock%}
 ```
 
-唯一做出了更改的地方就是 ```{% block page_content %}``` 这里，里面加入了一个表单.
+唯一做出了更改的地方就是 "{% block page_content %}" 这里，里面加入了一个表单.
 OK,启动一下我们的项目看看效果。
 
 ![](http://img.vim-cn.com/49/56d76adbd7ec1f2eda090edfed2f05a93b489f.png)

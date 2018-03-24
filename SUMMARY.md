@@ -10,3 +10,5 @@
 - [Day06 创建用户](./Day06 创建用户.md)
 - [Day07 后台管理与发布文章](./Day07 后台管理与发布文章.md)
 - [Day08 难说再见](./Day08 难说再见.md)
+- [使用Flask-Mail提供电子邮件支持](./使用Flask-Mail提供电子邮件支持.md)
+- [使用Flasky-SQLAlchemy 管理数据库](./使用Flasky-SQLAlchemy 管理数据库.md)
